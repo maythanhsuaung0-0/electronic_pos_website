@@ -14,4 +14,3 @@ _updatedAt`
 export const allItems = defineQuery(`*[_type=="item"]{${itemFields}}`);
 export const allCategories = defineQuery(`*[_type=="category"]{"id":_id,name}`);
 export const allSubCategories = defineQuery(`*[_type=="subcategory"]{"id":_id,name}`);
-

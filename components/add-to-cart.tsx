@@ -1,9 +1,8 @@
 // import { useState } from "react";
 import { CartItem } from "./cart-item";
 
-export function AddToCart() {
-  // const [currentCart,setCurrentCart] = useState([])
-
+export function AddToCart({cart}:Record<string,number>) {
+console.log("orders",cart)
   return (
     <div className="grid gap-4 mt-5 h-full ">
       <div className="h-[60vh] overflow-auto scroll-smooth">
