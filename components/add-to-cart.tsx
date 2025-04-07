@@ -1,16 +1,17 @@
-// import { useState } from "react";
+ "use client"
+ import { useState } from "react";
 import { CartItem } from "./cart-item";
 
-export function AddToCart({cart}:Record<string,number>) {
+export function AddToCart({cart,updateCart}:Record<string,Object> & {updateCart:Function}) {
+const [total,setTotal] = useState<number>(0.0)
+
 console.log("orders",cart)
   return (
     <div className="grid gap-4 mt-5 h-full ">
       <div className="h-[60vh] overflow-auto scroll-smooth">
         <div className="grid gap-2">
-          <CartItem name="sushi set a" price={20} />
-          <CartItem name="sushi set a" price={20} />
-          <CartItem name="sushi set a" price={20} />
-          <CartItem name="sushi set a" price={20} />
+        
+        {Object.keys(cart).map((key)=>(<CartItem key={key} id={key} mainTotal={total} setMainTotal={setTotal} detail={cart[key as keyof typeof cart]} updateCart={updateCart} />))}
         </div>
       </div>
       <div>

@@ -11,13 +11,20 @@ type Props = {
 }
 
 export const MainComponent = ({ categories, items }: Props) => {
-  const [cart, setCart] = useState<Record<string, number>>({})
-  const managingCart = (e: string, count: number) => {
+  const [cart, setCart] = useState<Record<string, Object>>({})
+
+  const managingCart = (e: string, count: number, itemInfo: Object) => {
+    console.log("my info", itemInfo, itemInfo["name" as keyof typeof itemInfo])
+
     if (count > 0) {
-      setCart((prev) => ({ ...prev, [e]: count }))
+      setCart((prev) => ({ ...prev, [e]: { "count": count, itemInfo } }))
     }
     else {
-      delete cart[e]
+      setCart((prev) => {
+        const newCart = { ...prev }
+        delete newCart[e]
+        return newCart;
+      })
     }
 
   }
@@ -54,7 +61,7 @@ export const MainComponent = ({ categories, items }: Props) => {
         <div className="p-5">
           {" "}
           <h3>My Orders</h3>
-          <AddToCart cart={cart} />
+          <AddToCart cart={cart} updateCart={managingCart} />
         </div>{" "}
       </div>
     </div>

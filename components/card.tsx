@@ -1,28 +1,21 @@
 'use client'
 import { ItemPreview } from "@/lib/types/item";
 import { SanityImage, urlFor } from "./sanityImage";
-import { SubCategoryPreview } from "@/lib/types/subcategory";
-import { CirclePlus, MinusCircle, PlusCircle } from "lucide-react";
-import { useState } from "react";
 import { Tag } from "./tags";
 interface CardProps {
   items: ItemPreview
 }
 
-export function Card({ items, func, cart }: CardProps & { func: Function, cart: Record<string, number> }) {
+export function Card({ items, func, cart }: CardProps & { func: Function, cart: Record<string, Object> }) {
 
   const { name, id, category, subcategory, image, price } = items;
-
-  const [count, setCount] = useState(0)
+  console.log("cart currently", id in cart)
+  const itemInfo = { "name": name, "category": category, "subcategory": subcategory, "url": image, "price": price }
   const add = (id: string) => {
-    console.log("added")
-    setCount(count+1)
-    func(id,count+1)
+    func(id, 1, itemInfo)
   }
   const remove = (id: string) => {
-    console.log("remove")
-    setCount(count-1)
-    func(id,count-1)
+    func(id, 0, itemInfo)
   }
 
   return (
@@ -40,9 +33,9 @@ export function Card({ items, func, cart }: CardProps & { func: Function, cart: 
         <span className=" text-lg font-bold text-blue-600">${price}</span>
         <Tag value={subcategory} />
       </div>
-      {(count>0) ?
-        <button className="flex gap-1 bg-blue-200 py-2">
-          <div onClick={() => remove(id)} className={cart[id] == 0 ? `cursor-not-allowed text-gray-400` : 'cursor-pointer text-blue-600'}><MinusCircle /></div><span>{[count]}</span><div onClick={() => add(id)} className="cursor-pointer text-blue-600"><PlusCircle /></div>
+      {(id in cart) ?
+        <button onClick={() => remove(id)} className="flex gap-1 py-2 text-sm bg-blue-500 mt-1 rounded-md justify-center hover:bg-blue-500 hover:text-white hover:transition-all  ">
+          Added
         </button>
         : <button onClick={() => add(id)} className="flex gap-1 py-2 text-sm bg-blue-100 mt-1 rounded-md justify-center hover:bg-blue-500 hover:text-white hover:transition-all ">
           <span>Add to cart</span>
