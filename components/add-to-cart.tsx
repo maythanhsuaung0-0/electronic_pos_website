@@ -2,8 +2,7 @@
  import { useState } from "react";
 import { CartItem } from "./cart-item";
 
-export function AddToCart({cart,updateCart}:Record<string,Object> & {updateCart:Function}) {
-const [total,setTotal] = useState<number>(0.0)
+export function AddToCart({cart,updateCart,total,setTotal}:Record<string,Object> & {updateCart:Function,total:number,setTotal:Function}) {
 
 console.log("orders",cart)
   return (
@@ -19,21 +18,17 @@ console.log("orders",cart)
           <tbody className="border-t border-b border-gray-200 py-1 ">
             <tr className="border-t border-gray-400">
               <td className="w-32 py-1 px-2">Sub total</td>
-              <td className="w-32 py-1 px-2 text-right ">$200</td>
+              <td className="w-32 py-1 px-2 text-right ">${total}</td>
             </tr>
-            <tr className="">
-              <td className="w-32 py-1 px-2">Delivery Fee</td>
-              <td className="w-32 py-1 px-2 text-right">$20</td>
-            </tr>
-            <tr className="border-b border-gray-400">
-              <td className="w-32 py-1 px-2">Taxes</td>
-              <td className="w-32 py-1 px-2 text-right">$20</td>
+           <tr className="border-b border-gray-400">
+              <td className="w-32 py-1 px-2">Taxes (8%)</td>
+              <td className="w-32 py-1 px-2 text-right">${total*0.08}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr className="">
-              <td className="w-32 py-1 px-2">Total</td>
-              <td className="w-32 py-1 px-2 text-right">$432</td>
+              <td className="w-32 py-1 px-2">Grand Total</td>
+              <td className="w-32 py-1 px-2 text-right">${total+(total*0.08)}</td>
             </tr>
           </tfoot>
         </table>

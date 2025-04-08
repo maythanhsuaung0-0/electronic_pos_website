@@ -12,7 +12,7 @@ type Props = {
 
 export const MainComponent = ({ categories, items }: Props) => {
   const [cart, setCart] = useState<Record<string, Object>>({})
-
+  const [total, setTotal] = useState<number>(0.0)
   const managingCart = (e: string, count: number, itemInfo: Object) => {
     console.log("my info", itemInfo, itemInfo["name" as keyof typeof itemInfo])
 
@@ -29,10 +29,10 @@ export const MainComponent = ({ categories, items }: Props) => {
 
   }
   return (
-    <div className="lg:grid lg:grid-cols-[auto_380px]">
+    <div className="grid lg:grid-cols-[auto_380px]">
       <div className="">
         <Navbar />
-        <div className="grid gap-6 mx-20">
+        <div className="grid gap-6 mx-16 lg:mx-20">
           <div>
             <h4 className="text-sm mt-6">Choose from popular categories</h4>
             <div className="flex gap-4 mt-2 flex-row">
@@ -50,6 +50,8 @@ export const MainComponent = ({ categories, items }: Props) => {
                     items={e}
                     func={managingCart}
                     cart={cart}
+                    total={total}
+                    setTotal={setTotal}
                   />
                 );
               })}
@@ -61,7 +63,7 @@ export const MainComponent = ({ categories, items }: Props) => {
         <div className="p-5">
           {" "}
           <h3>My Orders</h3>
-          <AddToCart cart={cart} updateCart={managingCart} />
+          <AddToCart total={total} setTotal={setTotal} cart={cart} updateCart={managingCart} />
         </div>{" "}
       </div>
     </div>

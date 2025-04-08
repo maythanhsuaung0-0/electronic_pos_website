@@ -6,16 +6,18 @@ interface CardProps {
   items: ItemPreview
 }
 
-export function Card({ items, func, cart }: CardProps & { func: Function, cart: Record<string, Object> }) {
+export function Card({ items, func, cart,total,setTotal }: CardProps & { func: Function, cart: Record<string, Object>,setTotal:Function,total:number }) {
 
   const { name, id, category, subcategory, image, price } = items;
   console.log("cart currently", id in cart)
   const itemInfo = { "name": name, "category": category, "subcategory": subcategory, "url": image, "price": price }
   const add = (id: string) => {
     func(id, 1, itemInfo)
+    setTotal(total+price)
   }
   const remove = (id: string) => {
     func(id, 0, itemInfo)
+    setTotal(total-price)
   }
 
   return (
