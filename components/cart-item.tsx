@@ -16,7 +16,7 @@ interface ChildProps {
   }
 }
 
-export function CartItem({ mainTotal,setMainTotal, detail, id, updateCart }: ChildProps & { id: string, updateCart: Function ,mainTotal:number, setMainTotal:Function} ) {
+export function CartItem({ mainTotal,setMainTotal, detail, id, updateCart,cart }: ChildProps & { id: string, updateCart: Function ,mainTotal:number, setMainTotal:Function, cart:Record<string,Object> } ) {
   const { count, itemInfo } = detail
   const itemName = itemInfo["name" as keyof typeof itemInfo]
   const url = itemInfo["url" as keyof typeof itemInfo]
@@ -43,9 +43,16 @@ export function CartItem({ mainTotal,setMainTotal, detail, id, updateCart }: Chi
     updateCart(id, count - 1, itemInfo)
     
   };
+  const deleteItem=()=>{
+    const price = itemInfo["price" as keyof typeof itemInfo]*cart[id].count
+     let subtotal = total - price
+     setTotal(subtotal)
+     setMainTotal(mainTotal - price)
+   updateCart(id,0,itemInfo)
+  }
   return (
     <div className="grid grid-cols-[80px_auto_40px] gap-3">
-      <div>
+       <div>
        {url!==undefined && typeof url === 'object'?<SanityImage
           className="border-sm h-[80px] object-cover -full rounded-md"
           src={urlFor(url).width(200).height(200).url()}
@@ -73,7 +80,7 @@ export function CartItem({ mainTotal,setMainTotal, detail, id, updateCart }: Chi
       </div>
       <div className="self-center grid gap-2">
         <div></div>
-        <div className="cursor-pointer w-fit">
+        <div className="cursor-pointer w-fit" onClick={deleteItem}>
           <Trash className="w-4 h-4 text-red-500 " />
         </div>
       </div>

@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from "react"
 import { Card } from "./card";
-import { Navbar } from "./navbar";
 import { Tag } from "./tags";
 import { AddToCart } from "./add-to-cart";
 import { ItemPreview } from "@/lib/types/item";
@@ -29,20 +28,20 @@ export const MainComponent = ({ categories, items }: Props) => {
 
   }
   return (
-    <div className="grid lg:grid-cols-[auto_380px]">
+
+    <div className="grid md:grid-cols-[auto_200px] h-[calc(100vh-60px)] lg:grid-cols-[auto_380px] @container ">
       <div className="">
-        <Navbar />
-        <div className="grid gap-6 mx-16 lg:mx-20">
+        <div className="grid gap-6 mx-12 lg:mx-20">
           <div>
             <h4 className="text-sm mt-6">Choose from popular categories</h4>
-            <div className="flex gap-4 mt-2 flex-row">
+            <div className="flex gap-2 mt-2 flex-row ">
               {categories.map((e: ItemPreview) => {
                 return <Tag key={e.id} value={e.name}></Tag>;
               })}
             </div>
           </div>
-          <div className=" scroll-smooth overflow-auto h-[calc(100vh-200px)]">
-            <div className="flex flex-wrap gap-4 flex-row">
+          <div className=" ">
+            <div className="grid grid-cols-2  @2xl:grid-cols-3 @4xl:grid-cols-5 gap-3 @2xl:gap-4 ">
               {items.map((e: ItemPreview) => {
                 return (
                   <Card
@@ -59,13 +58,14 @@ export const MainComponent = ({ categories, items }: Props) => {
           </div>
         </div>
       </div>
-      <div className="bg-gray-100 h-screen">
+      {    Object.keys(cart).length!==0 &&  <div className="bg-gray-100 ">
         <div className="p-5">
           {" "}
           <h3>My Orders</h3>
           <AddToCart total={total} setTotal={setTotal} cart={cart} updateCart={managingCart} />
         </div>{" "}
       </div>
+      }
     </div>
 
   )

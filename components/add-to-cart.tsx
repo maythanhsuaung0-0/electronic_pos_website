@@ -3,14 +3,16 @@
 import { CartItem } from "./cart-item";
 
 export function AddToCart({cart,updateCart,total,setTotal}:Record<string,Object> & {updateCart:Function,total:number,setTotal:Function}) {
-
+const order = ()=>{
+ console.log('current order',cart,total)
+}
 console.log("orders",cart)
   return (
-    <div className="grid gap-4 mt-5 h-full ">
-      <div className="h-[60vh] overflow-auto scroll-smooth">
+    <div className="grid gap-4 mt-5 ">
+      <div className="overflow-auto scroll-smooth">
         <div className="grid gap-2">
         
-        {Object.keys(cart).map((key)=>(<CartItem key={key} id={key} mainTotal={total} setMainTotal={setTotal} detail={cart[key as keyof typeof cart]} updateCart={updateCart} />))}
+        {Object.keys(cart).map((key)=>(<CartItem key={key} id={key} mainTotal={total} setMainTotal={setTotal} detail={cart[key as keyof typeof cart]} updateCart={updateCart} cart={cart}/>))}
         </div>
       </div>
       <div>
@@ -33,7 +35,7 @@ console.log("orders",cart)
           </tfoot>
         </table>
       </div>
-      <button className="bg-blue-500 rounded-full px-4 py-2 cursor-pointer">
+      <button onClick={order} className="bg-blue-500 rounded-full px-4 py-2 cursor-pointer">
         Order and Checkout
       </button>
     </div>

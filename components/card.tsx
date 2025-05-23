@@ -21,7 +21,7 @@ export function Card({ items, func, cart,total,setTotal }: CardProps & { func: F
   }
 
   return (
-    <div className="grid gap-1 bg-[#F8F9FD] p-4 rounded-md w-[200px] shadow-sm">
+    <div className="grid gap-1 bg-[#F8F9FD] p-4 rounded-md w-full shadow-sm hover:shadow-md">
       <div className="border border-gray-100 rounded-md">
         <SanityImage
           className="border-sm h-[100px] object-cover -full rounded-md"

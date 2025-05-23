@@ -2,12 +2,12 @@ import { Search } from "lucide-react";
 
 export function Navbar() {
   return (
-    <div className="px-20 py-5">
-      <ul className="flex flex-row gap-6">
+    <div className="lg:px-20 px-12 h-[60px] flex shadow-sm">
+      <ul className="flex flex-row my-auto gap-6">
         <li className="self-center">
           <h1 className="font-bold">MyElectron</h1>
         </li>
-        <li className="self-center">
+        <li className="ml-auto  ">
           <div className="flex gap-2 rounded-full bg-gray-200 py-2 px-4">
             <input
               type="text"
